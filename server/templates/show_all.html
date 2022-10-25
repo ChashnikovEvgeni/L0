@@ -1,0 +1,14 @@
+{{template "base" .}}
+
+
+{{define "show"}}
+
+<div class="container" align="left" style="margin-top:6%;">
+<ul>
+    {{range $key, $value := .}}
+    <h5><p>UID заказа: <a href="/showone/{{ $key }}"> {{ $key }}</a> </p></h5>
+    <hr/>
+    {{end}}
+</ul>
+</div>
+{{end}}
