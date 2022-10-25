@@ -26,10 +26,10 @@ func (s *Service) Save_data(order_uid *string, json_data *[]byte) {
 	if err != nil {
 		panic(err)
 	} else {
-		log.Println("Данные успешно внесенны в БД")
+		log.Println("Данные успешно внесены в БД")
 	}
 	s.Cache.Set(*order_uid, order, cache.NoExpiration)
-	log.Println("Данные успешно внесенны в кэш")
+	log.Println("Данные успешно внесены в кэш")
 
 }
 

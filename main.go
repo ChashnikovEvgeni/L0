@@ -34,9 +34,9 @@ func main() {
 		port      string
 	)
 	flag.StringVar(&connStr, "conn", "user=postgres password=123 dbname=L0 sslmode=disable", "database connection datar ")
-	flag.StringVar(&clusterID, "c", "cluster", "The NATS Streaming cluster ID")
+	flag.StringVar(&clusterID, "c", "clasterL0", "The NATS Streaming cluster ID")
 	flag.StringVar(&clientID, "id", "id", "The NATS Streaming client ID to connect with")
-	flag.StringVar(&port, "p", ":8084", "Port for server")
+	flag.StringVar(&port, "p", ":8082", "Port for server")
 
 	log.SetFlags(0)
 	flag.Usage = usage
