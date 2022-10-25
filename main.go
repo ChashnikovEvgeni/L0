@@ -7,7 +7,23 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"log"
+	"os"
 )
+
+var usageStr = `
+
+Options:
+	-conn database connection datar example: user=postgres password=123 dbname=L0 sslmode=disable
+	-c  The NATS Streaming cluster ID  example: cluster
+	-id The NATS Streaming client ID to connect with example:id
+	-p Port for server  example:  :8084
+
+`
+
+func usage() {
+	fmt.Printf("%s\n", usageStr)
+	os.Exit(0)
+}
 
 func main() {
 
@@ -23,6 +39,7 @@ func main() {
 	flag.StringVar(&port, "p", ":8084", "Port for server")
 
 	log.SetFlags(0)
+	flag.Usage = usage
 	flag.Parse()
 
 	service_l := service.Service{}
