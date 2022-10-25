@@ -1,7 +1,7 @@
 package main
 
 import (
-	"L0/app_data"
+	"L0/models"
 	"L0/service"
 	"database/sql"
 	"testing"
@@ -73,6 +73,7 @@ func TestValidation(t *testing.T) {
 }
 
 func TestDB(t *testing.T) {
+
 	service := service.Service{}
 	service.Set_config("", "", "")
 	t.Run("db_connect", func(t *testing.T) {
@@ -95,11 +96,10 @@ func TestCash(t *testing.T) {
 		// проверка правильности сохранения данных в кэш
 		order_uid := "fghjfghjgh25"
 		mjson := []byte("{\n\t\t\"track_number\": \"WBILMfghfghTESTTRACK\",\n\t\t\"entry\": \"WBIL\",\n\t\t\"delivery\": {\n\t\t  \"name\": \"Test Testov\",\n\t\t  \"phone\": \"+9720000000\",\n\t\t  \"zip\": \"2639809\",\n\t\t  \"city\": \"Kiryat Mozkin HHH\",\n\t\t  \"address\": \"Ploshad Mira 15\",\n\t\t  \"region\": \"Kraidfgot\",\n\t\t  \"email\": \"test@gmail.com\"\n\t\t},\n\t\t\"payment\": {\n\t\t  \"transaction\": \"b563uyiiu7bb84b\",\n\t\t  \"request_id\": \"\",\n\t\t  \"currency\": \"USD\",\n\t\t  \"provider\": \"wbpay\",\n\t\t  \"amount\": 1817,\n\t\t  \"payment_dt\": 1637907727,\n\t\t  \"bank\": \"alpha\",\n\t\t  \"delivery_cost\": 13489573945,\n\t\t  \"goods_total\": 366,\n\t\t  \"custom_fee\": 28\n\t\t},\n\t\t\"items\": [\n\t\t  {\n\t\t\t\"chrt_id\": 9934930,\n\t\t\t\"track_number\": \"WBILMTESTTRACK\",\n\t\t\t\"price\": 453,\n\t\t\t\"rid\": \"ab4219087a764ae0btest\",\n\t\t\t\"name\": \"Mascaras\",\n\t\t\t\"sale\": 30,\n\t\t\t\"size\": \"0\",\n\t\t\t\"total_price\": 317,\n\t\t\t\"nm_id\": 2389212,\n\t\t\t\"brand\": \"Vivienne Sabo\",\n\t\t\t\"status\": 202\n\t\t  }\n\t\t],\n\t\t\"locale\": \"en\",\n\t\t\"internal_signature\": \"\",\n\t\t\"customer_id\": \"test\",\n\t\t\"delivery_service\": \"meest\",\n\t\t\"shardkey\": \"9\",\n\t\t\"sm_id\": 99,\n\t\t\"date_created\": \"2021-11-26T06:22:19Z\",\n\t\t\"oof_shard\": \"1\"\n\t  }")
-		standart_order := app_data.Order{Order_uid: order_uid, Mjson: mjson}
-
+		standart_order := models.Order{Order_uid: order_uid, Mjson: mjson}
 		service.Add_in_cache(&order_uid, &mjson)
 		result, found := service.Cache.Get(order_uid)
-		resultorder := result.(app_data.Order)
+		resultorder := result.(models.Order)
 		if found == false {
 			t.Errorf("Заказ не найден в кэше")
 		}

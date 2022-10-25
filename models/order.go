@@ -1,4 +1,4 @@
-package app_data
+package models
 
 type Order struct {
 	Order_uid string

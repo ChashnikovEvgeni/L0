@@ -1,7 +1,7 @@
 package server
 
 import (
-	"L0/app_data"
+	"L0/models"
 	"L0/service"
 	_ "github.com/lib/pq"
 	"html/template"
@@ -66,7 +66,7 @@ func (h *Httpserver) Showone(w http.ResponseWriter, r *http.Request) {
 	}
 
 	result, found := h.Service.Cache.Get(r.URL.Path[len("/showone/"):])
-	order := result.(app_data.Order)
+	order := result.(models.Order)
 	if found {
 		formData.Order_uid = order.Order_uid
 		formData.Data = string(order.Mjson)

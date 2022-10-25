@@ -12,7 +12,7 @@ type Service struct {
 	DB    *sql.DB
 
 	// Данные для подключения к БД
-	СonnStr string
+	ConnStr string
 
 	// Данные для подключение к nats streaming service
 	ClusterID string
@@ -23,11 +23,11 @@ type Service struct {
 func (s *Service) Set_config(connStr string, clusterID string, clientID string) bool {
 	s.Cache = cache.New(5*time.Minute, 10*time.Minute)
 	if connStr == "" {
-		s.СonnStr = "user=postgres password=123 dbname=L0 sslmode=disable"
+		s.ConnStr = "user=postgres password=123 dbname=L0 sslmode=disable"
 	} else {
-		s.СonnStr = connStr
+		s.ConnStr = connStr
 	}
-	fmt.Println(s.СonnStr)
+	fmt.Println(s.ConnStr)
 
 	if clusterID == "" {
 		s.ClusterID = "test-cluster"

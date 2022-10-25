@@ -1,4 +1,4 @@
-package app_data
+package models
 
 import (
 	"time"

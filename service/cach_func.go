@@ -1,7 +1,7 @@
 package service
 
 import (
-	"L0/app_data"
+	"L0/models"
 	"github.com/patrickmn/go-cache"
 	"log"
 )
@@ -22,7 +22,7 @@ func (s *Service) Make_start_cache() {
 
 // Добавление данных одного заказа в кэш
 func (s *Service) Add_in_cache(order_uid *string, mjson *[]byte) {
-	order := app_data.Order{*order_uid, *mjson}
+	order := models.Order{*order_uid, *mjson}
 	s.Cache.Set(*order_uid, order, cache.NoExpiration)
 
 }

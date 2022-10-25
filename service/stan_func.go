@@ -40,7 +40,6 @@ func (s *Service) Receiving(m *stan.Msg) {
 	var data map[string]interface{}
 	log.Println("Полученное сообщение:\n", string(m.Data))
 	result := s.Validation(&m.Data)
-	log.Println(result)
 	if result == true {
 		json.Unmarshal(m.Data, &data)
 		order_uid := data["order_uid"].(string)

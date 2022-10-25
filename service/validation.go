@@ -1,7 +1,7 @@
 package service
 
 import (
-	"L0/app_data"
+	"L0/models"
 	"encoding/json"
 	"fmt"
 	"github.com/go-playground/validator/v10"
@@ -12,7 +12,7 @@ import (
 func (s *Service) Validation(Data *[]byte) bool {
 	var validate *validator.Validate
 	validate = validator.New()
-	var data app_data.OrderJson
+	var data models.OrderJson
 	var err error
 	err = json.Unmarshal(*Data, &data)
 	if err != nil {

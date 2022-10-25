@@ -3,8 +3,10 @@ package main
 import (
 	"L0/server"
 	"L0/service"
+	"flag"
 	"fmt"
 	_ "github.com/lib/pq"
+	"log"
 )
 
 func main() {
@@ -15,16 +17,21 @@ func main() {
 		clientID  string
 		port      string
 	)
+	flag.StringVar(&connStr, "conn", "user=postgres password=123 dbname=L0 sslmode=disable", "database connection datar ")
+	flag.StringVar(&clusterID, "c", "cluster", "The NATS Streaming cluster ID")
+	flag.StringVar(&clientID, "id", "id", "The NATS Streaming client ID to connect with")
+	flag.StringVar(&port, "p", ":8084", "Port for server")
 
-	//fmt.Println(connStr, clusterID, clientID, port)
+	log.SetFlags(0)
+	flag.Parse()
 
-	service := service.Service{}
-	service.Set_config(connStr, clusterID, clientID)
-	service.DB_connect()
-	service.Make_start_cache()
+	service_l := service.Service{}
+	service_l.Set_config(connStr, clusterID, clientID)
+	service_l.DB_connect()
+	service_l.Make_start_cache()
 	server := server.Httpserver{}
-	server.Set_config(&port, &service)
-	go service.Connect_listen()
+	server.Set_config(&port, &service_l)
+	go service_l.Connect_listen()
 	go server.Server_work()
 	fmt.Scanln()
 
